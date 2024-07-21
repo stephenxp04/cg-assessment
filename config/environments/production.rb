@@ -86,6 +86,7 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-  config.middleware.use ActionDispatch::RemoteIp, trusted_proxies: /^127\.0\.0\.1$/ # Add your proxy IP if different
-
+  config.middleware.insert_before(0, ActionDispatch::RemoteIp, 
+  trusted_proxies: ['127.0.0.1', '::1', '13.213.42.233'])
+  config.action_dispatch.trusted_proxies = ['127.0.0.1', '::1', '13.213.42.233']
 end

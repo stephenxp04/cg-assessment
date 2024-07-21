@@ -14,7 +14,7 @@ class UrlsController < ApplicationController
     short_url = ShortUrl.find_by(short_url: params[:id])
     
     if short_url
-      ip = request.headers['X-Forwarded-For'] || request.remote_ip
+      ip = request.remote_ip
       Rails.logger.info("IP Address: #{ip}")
       location = fetch_ipinfo(ip.split(',').first.strip)
   
