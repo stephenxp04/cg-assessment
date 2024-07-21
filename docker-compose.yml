@@ -73,6 +73,7 @@ services:
 
   web:
     <<: *default-app
+    command: bash -c "rm -f /app/tmp/pids/server.pid && bundle exec rails server -b '0.0.0.0'"
     deploy:
       resources:
         limits:
@@ -87,6 +88,7 @@ services:
     ports:
       - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:8000}:${PORT:-8000}"
     profiles: ["web"]
+
 
   worker:
     <<: *default-app
