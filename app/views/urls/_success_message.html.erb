@@ -1,0 +1,8 @@
+<%= turbo_frame_tag "success-message" do %>
+  <div id="success-message" class="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+    Short URL created successfully! <br> Your Short URL: 
+    <a href="<%= short_url %>" target="_blank"><%= short_url %></a> <br>
+    Original URL: <%= url.target_url %> <br>
+    Title: <%= url.title %>
+  </div>
+<% end %>

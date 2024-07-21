@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "url-form" do %>
+  <%= form_with model: url, url: urls_path, method: :post, html: { id: "url-form", class: "space-y-4", data: { controller: "urls", action: "submit->urls#validateAndSubmit" } } do |form| %>
+    <div>
+      <%= form.label :target_url, "Original URL", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :target_url, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", data: { "urls-target": "input" } %>
+      <div data-urls-target="errorMessage" style="color: red; display: none;"></div>
+    </div>
+    <div>
+      <%= form.submit "Shorten URL", class: "px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700" %>
+    </div>
+  <% end %>
+<% end %>

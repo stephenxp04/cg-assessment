@@ -1,0 +1,29 @@
+<h1 class="text-2xl font-bold mb-4">MANA Token Information</h1>
+
+<% if @mana_info.present? %>
+  <div class="bg-white shadow-lg rounded-lg p-6 max-w-full mx-auto">
+    <h2 class="text-xl font-semibold mb-4">Token Details</h2>
+    <ul class="space-y-2">
+      <li class="flex justify-between">
+        <span class="font-medium">Token Name:</span>
+        <span><%= @mana_info[:name] %></span>
+      </li>
+      <li class="flex justify-between">
+        <span class="font-medium">Token Symbol:</span>
+        <span><%= @mana_info[:symbol] %></span>
+      </li>
+      <li class="flex justify-between">
+        <span class="font-medium">Decimals:</span>
+        <span><%= @mana_info[:decimals] %></span>
+      </li>
+      <li class="flex justify-between">
+        <span class="font-medium">Total Supply:</span>
+        <span><%= @mana_info[:total_supply] %> <%= @mana_info[:symbol] %></span>
+      </li>
+    </ul>
+  </div>
+<% else %>
+  <div class="bg-red-100 text-red-800 p-4 rounded-lg max-w-sm mx-auto">
+    <p class="font-semibold">Unable to fetch MANA token information at this time.</p>
+  </div>
+<% end %>

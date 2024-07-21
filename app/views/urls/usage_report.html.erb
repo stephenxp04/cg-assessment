@@ -1,0 +1,48 @@
+<h1 class="text-2xl font-bold mb-4">Usage Report</h1>
+
+<div class="mb-4">
+  <%= form_with url: usage_report_path, method: :get, local: true, class: "flex items-center" do |f| %>
+    <%= f.select :short_url_id, 
+                 options_from_collection_for_select(@urls.flat_map(&:short_urls), :id, :short_url, params[:short_url_id]),
+                 { prompt: "Select a Short URL" },
+                 class: "form-select mr-2" %>
+    <%= f.submit "View Report", class: "px-4 py-2 bg-blue-500 text-white rounded" %>
+  <% end %>
+</div>
+
+<% if @selected_short_url %>
+  <h2 class="text-xl font-semibold mb-2">Report for Short URL: <%= @selected_short_url.short_url %></h2>
+  <p class="mb-2">Original URL: <%= @selected_short_url.url.target_url %></p>
+  <p class="mb-4">Total Clicks: <%= @clicks.count %></p>
+
+  <% if @clicks.any? %>
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamp</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">IP</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Country</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">City</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Latitude</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Longitude</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @clicks.each do |click| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap"><%= click.clicked_at %></td>
+            <td class="px-6 py-4 whitespace-nowrap"><%= click.geolocation %></td>
+            <td class="px-6 py-4 whitespace-nowrap"><%= click.country %></td>
+            <td class="px-6 py-4 whitespace-nowrap"><%= click.city %></td>
+            <td class="px-6 py-4 whitespace-nowrap"><%= click.latitude %></td>
+            <td class="px-6 py-4 whitespace-nowrap"><%= click.longitude %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No clicks recorded for this Short URL yet.</p>
+  <% end %>
+<% else %>
+  <p>Please select a Short URL to view its usage report.</p>
+<% end %>

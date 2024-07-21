@@ -1,0 +1,4 @@
+<%= turbo_stream.remove("url_#{@url.id}") %>
+<%= turbo_stream.replace("url-form", partial: "urls/form", locals: { url: @url }) %>
+<%= turbo_stream.replace("urls-table", partial: "urls/table", locals: { urls: @urls }) %>
+<%= turbo_stream.remove("success-message") %>

@@ -1,0 +1,3 @@
+<%= turbo_stream.replace("url-form", partial: "urls/form", locals: { url: @url }) %>
+<%= turbo_stream.replace("urls-table", partial: "urls/table", locals: { urls: @urls }) %>
+<%= turbo_stream.replace("success-message", partial: "urls/success_message", locals: { url: @url1, short_url: @shorturl }) %>
