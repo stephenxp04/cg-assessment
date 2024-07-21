@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   # Define explicit routes first
   resources :urls, only: [:destroy, :index, :create]
-  # root "urls#index"
-  root to: redirect('/urls')
+  
+  # Change the root route to point directly to the index action
+  root "urls#index"
 
   get "/up/", to: "up#index", as: :up
   get "/up/databases", to: "up#databases", as: :up_databases
