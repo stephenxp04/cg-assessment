@@ -21,19 +21,39 @@ updated every time I bump the versions:
 
 ## Table of contents
 
-- [Tech stack](#tech-stack)
-- [Main changes vs a newly generated Rails app](#main-changes-vs-a-newly-generated-rails-app)
-- [Running this app](#running-this-app)
-- [Files of interest](#files-of-interest)
-  - [`.env`](#env)
-  - [`run`](#run)
-- [Running a script to automate renaming the project](#running-a-script-to-automate-renaming-the-project)
-- [Updating dependencies](#updating-dependencies)
-- [See a way to improve something?](#see-a-way-to-improve-something)
-- [Additional resources](#additional-resources)
-  - [Learn more about Docker and Ruby on Rails](#learn-more-about-docker-and-ruby-on-rails)
-  - [Deploy to production](#deploy-to-production)
-- [About the author](#about-the-author)
+- [An example Rails + Docker app](#an-example-rails--docker-app)
+  - [Table of contents](#table-of-contents)
+  - [Tech stack](#tech-stack)
+    - [Back-end](#back-end)
+    - [Front-end](#front-end)
+  - [Main changes vs a newly generated Rails app](#main-changes-vs-a-newly-generated-rails-app)
+  - [Running this app](#running-this-app)
+      - [Clone this repo anywhere you want and move into the directory:](#clone-this-repo-anywhere-you-want-and-move-into-the-directory)
+      - [Copy an example .env file because the real one is git ignored:](#copy-an-example-env-file-because-the-real-one-is-git-ignored)
+      - [Build everything:](#build-everything)
+      - [Setup the initial database:](#setup-the-initial-database)
+      - [Check it out in a browser:](#check-it-out-in-a-browser)
+      - [Running the test suite:](#running-the-test-suite)
+      - [Stopping everything:](#stopping-everything)
+  - [Files of interest](#files-of-interest)
+    - [`.env`](#env)
+    - [`run`](#run)
+  - [Running a script to automate renaming the project](#running-a-script-to-automate-renaming-the-project)
+      - [Run the rename-project script included in this repo:](#run-the-rename-project-script-included-in-this-repo)
+      - [Start and setup the project:](#start-and-setup-the-project)
+      - [Sanity check to make sure the tests still pass:](#sanity-check-to-make-sure-the-tests-still-pass)
+      - [Tying up a few loose ends:](#tying-up-a-few-loose-ends)
+  - [Updating dependencies](#updating-dependencies)
+      - [In development:](#in-development)
+      - [In CI:](#in-ci)
+      - [In production:](#in-production)
+  - [See a way to improve something?](#see-a-way-to-improve-something)
+  - [Additional resources](#additional-resources)
+    - [Learn more about Docker and Ruby on Rails](#learn-more-about-docker-and-ruby-on-rails)
+      - [Official documentation](#official-documentation)
+      - [Courses / Screencasts](#courses--screencasts)
+    - [Deploy to production](#deploy-to-production)
+  - [About the author](#about-the-author)
 
 ## Tech stack
 
@@ -394,3 +414,5 @@ There's hundreds of [blog posts](https://nickjanetakis.com/blog/) and a couple
 of [video courses](https://nickjanetakis.com/courses/) on web development and
 deployment topics. I also have a [podcast](https://runninginproduction.com)
 where I talk with folks about running web apps in production.
+
+rails generate rspec:install

@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   # Define explicit routes first
   resources :urls, only: [:destroy, :index, :create]
+  resources :urls do
+    collection do
+      get 'usage_report'
+    end
+  end
   
   # Change the root route to point directly to the index action
   root "urls#index"
