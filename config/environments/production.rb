@@ -109,9 +109,15 @@ Rails.application.configure do
 
   cloudflare_proxy_ips = cloudflare_ipv4.map { |ip| IPAddr.new(ip) }
 
+  # Add your Apache server's IP address and localhost
+  trusted_proxies = cloudflare_proxy_ips + [IPAddr.new('127.0.0.1'), IPAddr.new('::1')]
+
+  # If your Apache server has a different IP, add it here
+  # trusted_proxies << IPAddr.new('your_apache_server_ip')
+
   config.middleware.insert_before(0, ActionDispatch::RemoteIp, 
-    trusted_proxies: cloudflare_proxy_ips
+    trusted_proxies: trusted_proxies
   )
 
-  config.action_dispatch.trusted_proxies = cloudflare_proxy_ips
+  config.action_dispatch.trusted_proxies = trusted_proxies
 end
