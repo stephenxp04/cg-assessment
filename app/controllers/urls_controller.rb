@@ -1,5 +1,6 @@
 require 'net/http'
 require 'json'
+require 'csv'
 
 class UrlsController < ApplicationController
   before_action :find_or_create_user
@@ -122,9 +123,36 @@ class UrlsController < ApplicationController
     else
       @clicks = []
     end
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        filename = generate_csv_filename(@selected_short_url)
+        send_data generate_csv(@clicks), filename: filename
+      end
+    end
   end
 
   private
+
+  def generate_csv(clicks)
+    CSV.generate(headers: true) do |csv|
+      csv << ["Timestamp", "IP", "Country", "City", "Latitude", "Longitude"]
+      clicks.each do |click|
+        csv << [click.clicked_at, click.geolocation, click.country, click.city, click.latitude, click.longitude]
+      end
+    end
+  end
+
+  def generate_csv_filename(short_url)
+    if short_url
+      protocol = request.protocol
+      host = request.host_with_port
+      "#{protocol}#{host}/#{short_url.short_url}-usage_report-#{Date.today}.csv"
+    else
+      "usage_report-#{Date.today}.csv"
+    end
+  end
 
   def fetch_ipinfo(ip)
     token = ENV['GEOCODER_API_KEY']
