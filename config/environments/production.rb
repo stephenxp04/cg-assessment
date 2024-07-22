@@ -89,23 +89,16 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-  cloudflare_ips = %w(
-    173.245.48.0/20
-    103.21.244.0/22
-    103.22.200.0/22
-    103.31.4.0/22
-    141.101.64.0/18
-    108.162.192.0/18
-    190.93.240.0/20
-    188.114.96.0/20
-    197.234.240.0/22
-    198.41.128.0/17
-    162.158.0.0/15
-    104.16.0.0/13
-    104.24.0.0/14
-    172.64.0.0/13
-    131.0.72.0/22
-  )
-  config.middleware.insert_before(0, ActionDispatch::RemoteIp, trusted_proxies: ['127.0.0.1', '::1', '13.213.42.233'] + cloudflare_ips)
-  config.action_dispatch.trusted_proxies = ['127.0.0.1', '::1', '13.213.42.233'] + cloudflare_ips
+  trusted_proxies = [
+    '127.0.0.1',  # localhost
+    '::1',        # localhost IPv6
+    '13.213.42.233'  # Example of a specific trusted proxy IP
+  ]
+
+  # Insert middleware to handle the correct remote IP address
+  config.middleware.insert_before(0, ActionDispatch::RemoteIp, trusted_proxies: trusted_proxies)
+
+  # If using `config.action_dispatch.trusted_proxies`, make sure it includes your proxy IPs
+  config.action_dispatch.trusted_proxies = trusted_proxies
+
 end
