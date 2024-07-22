@@ -14,9 +14,10 @@
 
 <script>
   function copyToClipboard(text) {
-    const url = window.location.host;
-    const textToCopy = `${url}/${text}`;
-    
+    const protocol = window.location.protocol; // e.g., 'http:' or 'https:'
+    const host = window.location.host; // e.g., 'example.com'
+    const textToCopy = `${protocol}//${host}/${text}`;
+
     if (navigator.clipboard) {
       navigator.clipboard.writeText(textToCopy).then(function() {
         alert('Copied to clipboard!');
@@ -40,3 +41,4 @@
     }
   }
 </script>
+
