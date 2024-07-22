@@ -6,7 +6,7 @@
   </div>
 
   <div id="success-message">
-    <%= render partial: "urls/success_message", locals: { url: @url1, short_url: @shorturl } if @shorturl %>
+    <%= render partial: "urls/success_message", locals: { url: @url1, short_url: @shorturl, error_message: @error_message } %>
   </div>
 
   <div id="urls-table">
