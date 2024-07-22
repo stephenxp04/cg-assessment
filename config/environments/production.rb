@@ -47,13 +47,10 @@ Rails.application.configure do
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
-  # config.assume_ssl = true
+  config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
-
-  # Trust the X-Forwarded-Proto header from Cloudflare
-  config.ssl_options = { redirect: { exclude: -> request { request.headers['X-Forwarded-Proto'] == 'https' } } }
+  config.force_ssl = false
 
   # Info include generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
