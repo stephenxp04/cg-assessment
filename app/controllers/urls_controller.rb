@@ -71,19 +71,27 @@ class UrlsController < ApplicationController
     if @url.new_record?
       if @url.save
         @url.update(title: fetch_title_from_url(@url.target_url))
+        if @url.title.blank?
+          @url.destroy
+          @error_message = "Invalid URL. No title found."
+        end
+      else
+        @error_message = @url.errors.full_messages.join(", ")
       end
     end
-    @shorturl = SecureRandom.alphanumeric(15)
-    @short_url = @url.short_urls.create(short_url: @shorturl)
+    if @error_message.nil?
+      @shorturl = SecureRandom.alphanumeric(15)
+      @short_url = @url.short_urls.create(short_url: @shorturl)
+    end
     @urls = current_user.urls.includes(:short_urls)
     @url1 = @url
     @url = Url.new
-
+  
     respond_to do |format|
       format.turbo_stream
       format.html { render :index }
     end
-  end
+  end  
   
   def destroy
     @url = current_user.urls.find(params[:id])
@@ -172,10 +180,10 @@ class UrlsController < ApplicationController
       document = Nokogiri::HTML(response.body)
       document.title
     else
-      "No title found"
+      ""
     end
   rescue StandardError => e
     Rails.logger.error("Failed to fetch title: #{e.message}")
-    "No title found"
+    ""
   end
 end

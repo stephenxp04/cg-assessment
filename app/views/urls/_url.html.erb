@@ -4,31 +4,20 @@
   <td class="px-6 py-4 text-sm text-gray-500">
     <ul class="space-y-2">
       <% url.short_urls.each do |short_url| %>
-        <li class="flex justify-between items-center py-2">
-          <div class="flex items-center space-x-2">
-            <a href="<%= short_url_path(short_url.short_url) %>" class="text-blue-500 hover:underline" target="_blank"><%= short_url.short_url %></a>
+        <li class="flex flex-col md:flex-row justify-between items-center py-2">
+          <div class="flex items-center space-x-2 w-full">
+            <a href="<%= short_url_path(short_url.short_url) %>" class="text-blue-500 hover:underline md:w-[75%]" target="_blank"><%= short_url.short_url %></a>
             <button
               class="text-gray-600 hover:text-gray-900"
               onclick="copyToClipboard('<%= short_url.short_url %>')"
               title="Copy to Clipboard">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6M9 17h6M4 4h4v4H4zM14 4h4v4h-4z"></path>
-              </svg>
+              Copy
             </button>
-            <a href="mailto:?subject=Check out this URL&body=Here is a URL you might find interesting: <%= short_url_path(short_url.short_url) %>"
-              class="text-blue-500 hover:underline"
-              title="Share via Email">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16v16H4V4zm16 0l-8 8-8-8"></path>
-              </svg>
-            </a>
             <a href="/usage_report?short_url_id=<%= short_url.id %>&commit=View+Report" 
               data-turbo="false"
               class="text-blue-500 hover:underline"
               title="View Usage Report">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3V3zm3 6h12M9 9v12"></path>
-              </svg>
+              Usage
             </a>
           </div>
         </li>
