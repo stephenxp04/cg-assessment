@@ -89,7 +89,7 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-  cloudflare_ips = %w(
+  cloudflare_ipv4 = %w(
     173.245.48.0/20
     103.21.244.0/22
     103.22.200.0/22
@@ -106,6 +106,12 @@ Rails.application.configure do
     172.64.0.0/13
     131.0.72.0/22
   )
-  config.middleware.insert_before(0, ActionDispatch::RemoteIp, trusted_proxies: ['127.0.0.1', '::1', '13.213.42.233'] + cloudflare_ips)
-  config.action_dispatch.trusted_proxies = ['127.0.0.1', '::1', '13.213.42.233'] + cloudflare_ips
+
+  cloudflare_proxy_ips = cloudflare_ipv4.map { |ip| IPAddr.new(ip) }
+
+  config.middleware.insert_before(0, ActionDispatch::RemoteIp, 
+    trusted_proxies: cloudflare_proxy_ips
+  )
+
+  config.action_dispatch.trusted_proxies = cloudflare_proxy_ips
 end

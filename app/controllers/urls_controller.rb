@@ -14,7 +14,7 @@ class UrlsController < ApplicationController
     short_url = ShortUrl.find_by(short_url: params[:id])
     
     if short_url
-      ip = request.remote_ip
+      ip = client_ipv4
       Rails.logger.info("IP Address: #{ip}")
       location = fetch_ipinfo(ip.split(',').first.strip)
   
