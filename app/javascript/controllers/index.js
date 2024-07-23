@@ -3,6 +3,3 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
-
-import UrlsController from "./urls_controller"
-application.register("urls", UrlsController)
