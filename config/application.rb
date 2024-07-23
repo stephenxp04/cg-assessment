@@ -15,6 +15,8 @@ module Hello
     #   https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#config-autoload-lib-ignore.
     config.autoload_lib(ignore: %w(assets tasks))
 
+    config.autoload_paths += %W(#{config.root}/app/services)
+
     # Log to STDOUT because Docker expects all processes to log here. You could
     # then collect logs using journald, syslog or forward them somewhere else.
     config.logger = ActiveSupport::Logger.new(STDOUT)

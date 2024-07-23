@@ -71,7 +71,7 @@ class UrlsController < ApplicationController
     @url = current_user.urls.find_or_initialize_by(target_url: @input)
     if @url.new_record?
       if @url.save
-        @url.update(title: fetch_title_from_url(@url.target_url))
+        @url.update(title: TitleFetcherService.fetch(@url.target_url))
         if @url.title.blank?
           @url.destroy
           @error_message = "Invalid URL. No title found."
@@ -81,8 +81,9 @@ class UrlsController < ApplicationController
       end
     end
     if @error_message.nil?
-      @shorturl = SecureRandom.alphanumeric(15)
-      @short_url = @url.short_urls.create(short_url: @shorturl)
+      shortener_service = UrlShortenerService.new(@url)
+      @short_url = shortener_service.shorten
+      @shorturl = @short_url.short_url
     end
     @urls = current_user.urls.includes(:short_urls)
     @url1 = @url
@@ -92,7 +93,7 @@ class UrlsController < ApplicationController
       format.turbo_stream
       format.html { render :index }
     end
-  end  
+  end
   
   def destroy
     @url = current_user.urls.find(params[:id])
