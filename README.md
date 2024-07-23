@@ -2,6 +2,18 @@
 
 Use this example app (<https://github.com/nickjj/docker-rails-example> reference: <https://nickjanetakis.com>.) as a base for new project to Dockerize Rails app due to hard time setting up on Mac environment, there was alot of ruby, gem install permission erros that are a common issue found online. The project is hosted on AWS free tier EC2, with Let's Encrypt free SSL, Apache2 hosting on proxy pass reverse. It includes the URL shortener application in root/urls path, the answers to extensions #2 question Contract Calls Knowledge on /mana path, DEX event logs question number 3 on /swap path.
 
+URL Shortener Application: <https://anybook.app>
+Usage report page: <https://anybook.app/usage_report>
+
+The web application stores a unique cookie token for each user and their respective shortened URLs.
+
+Extension 2
+
+Contract Call Knowledge: <https://anybook.app/mana>
+DEX Event Logs: <https://anybook.app/swap>
+
+<https://anybook.app/[shortened_url]> will be used for the short url redirections
+
 ## Table of contents
 
 - [Coingecko Assessment](#coingecko-assessment)
